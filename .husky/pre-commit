@@ -1,3 +1,8 @@
+if ! git diff --quiet; then
+    echo "Unstaged changes found"
+    exit 1
+fi
+
 file="OnlyCapitalContentAllowed.txt"
 
 awk '{ print toupper($0) }' "$file" > "${file}.tmp"
