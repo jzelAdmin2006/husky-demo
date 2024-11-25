@@ -1,0 +1,11 @@
+file="OnlyCapitalContentAllowed.txt"
+
+awk '{ print toupper($0) }' "$file" > "${file}.tmp"
+
+if ! cmp -s "$file" "${file}.tmp"; then
+    mv "${file}.tmp" "$file"
+    git add "$file"
+	echo "Warning: The file '$file' contained lowercase or non-standard uppercase characters which were converted to standard uppercase characters."
+else
+    rm "${file}.tmp"
+fi
